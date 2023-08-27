@@ -68,7 +68,7 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-userSchema.pre("save", function (): void {
+userSchema.pre("save", async function (): Promise<void> {
   this.email = this.email.toLowerCase();
 });
 

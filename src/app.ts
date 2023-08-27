@@ -4,13 +4,20 @@ import mongoose from "mongoose";
 
 dotnev.config({ path: "src/.env" });
 
+import userRoutes from "./route/user";
+import adminRoutes from "./route/admin";
+
 const app: Express = express();
 
+app.use(express.json({}));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", async (req: Request, res: Response): Promise<Response> => {
   return res.send({ status: "sucess", message: "Welcome to our home page" });
 });
+
+app.use(userRoutes);
+app.use("/admin", adminRoutes);
 
 const connectDB = async (uri: string): Promise<void> => {
   try {
